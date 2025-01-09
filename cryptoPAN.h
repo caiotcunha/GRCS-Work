@@ -2,12 +2,29 @@
 #ifndef CRYPTOPAN_H
 #define CRYPTOPAN_H
 
+#include <iostream>
+#include <iomanip>
 #include <vector>
-#include <cstddef> 
+#include <array>
+#include <stdexcept>
+#include <cstdint>
+#include <cstring>
+#include <crypto++/aes.h>
+#include <crypto++/modes.h>
+#include <string>
 
-class CriptoPan {
+using namespace CryptoPP;
+
+class CryptoPan {
 public:
-    CriptoPan(const unsigned char* key, size_t keySize);  // Construtor declarado aqui
+    CryptoPan(const std::string& key);
+    ~CryptoPan();
+    ECB_Mode<CryptoPP::AES>::Encryption aes;
+    std::array<uint8_t, 16> pad;
+    std::vector<std::pair<uint32_t, uint32_t>> masks;
+
+    uint32_t toInt(const std::array<uint8_t, 4>& arr);
+
 };
 
 #endif // CRYPTOPAN_H
