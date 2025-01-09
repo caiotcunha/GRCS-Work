@@ -7,11 +7,12 @@
 #include <modes.h>
 #include <hex.h>
 
+using namespace CryptoPP;
 
-CriptoPan::CriptoPan(const std::vector<unsigned char>& key) {
 
-    for (int i = 0; i < 32; i++) {
-        printf("teste\n"); 
-    }
-    
+CriptoPan::CriptoPan(const unsigned char* key, size_t keySize) {
+
+    ECB_Mode<AES>::Encryption ecbEncryption;
+    ecbEncryption.SetKey(key, keySize);
+
 }
