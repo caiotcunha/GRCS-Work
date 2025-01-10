@@ -18,7 +18,6 @@ using namespace CryptoPP;
 class CryptoPan {
 public:
     CryptoPan(const std::string& key);
-    ~CryptoPan();
     ECB_Mode<CryptoPP::AES>::Encryption aes;
     std::array<uint8_t, 16> pad;
     std::vector<std::pair<uint32_t, uint32_t>> masks;

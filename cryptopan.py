@@ -24,17 +24,26 @@ class CryptoPan():
         self.aes=AES(key[0:16],1)
         self.pad=self.aes.encrypt(key[16:32])
         
-        print("aes:", self.aes)
-        print("pad:", self.pad)
+        # print("aes:", self.aes)
+        # print("pad:", self.pad)
+        
+        # for i in self.pad:
+        #     print(f"{i:02x}")
 
         f4=self.pad[0:4]
+        for i in f4:
+            print(f"{i:02x}")
+        
+        # print("f4:", f4)
         # Python 2 requires explicit conversion to ints
         if isinstance(f4, str):
             f4=[ord(x) for x in f4]
-
+        
         f4bp=self.toint(f4)
-        print("f4bp:", f4bp)
         self.masks=[(mask, f4bp & (~ mask)) for mask in (0xFFFFFFFF >> (32 - p) << (32 - p) for p in range(0, 32))]
+        
+        # for i in self.masks:
+        #     print(f"{i[0]:08x} {i[1]:08x}")
 
     def toint(self, array):
         return array[0] << 24 | array[1] <<16 | array[2] << 8 | array[3]
