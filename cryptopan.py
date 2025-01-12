@@ -63,7 +63,6 @@ class CryptoPan():
         def calc(a):
             """ calculate the first bit for Crypto-PAN"""
             a_array = self.toarray(a)
-
             # Python 2 requires converting ints to chars one at a time
             if isinstance(self.pad, str):
                 inp="".join((chr(x) for x in a_array))
@@ -79,10 +78,9 @@ class CryptoPan():
                 out=ord(out)
 
             return out >> 7
-
+        
         addresses=((address & mask[0]) | mask[1] for mask in self.masks)
         result=reduce(lambda x, y: x << 1 | y, (calc(a) for a in addresses), 0)
-        print(result)
         return ".".join(["%s" % x for x in self.toarray(result ^ address)])
     
 
