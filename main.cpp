@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <crypto++/sha.h>
-#include <crypto++/hex.h>
+#include <cryptopp/sha.h>
+#include <cryptopp/hex.h>
 
 
 #include "cryptoPAN.h"
@@ -14,6 +14,7 @@ int main() {
     std::string key = "boojahyoo3vaeToong0Eijee7Ahz3yee";
 
     CryptoPan *cp = new CryptoPan(key);
+    cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","123.123.123.123") << endl;
 
     delete cp;
 

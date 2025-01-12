@@ -82,13 +82,14 @@ class CryptoPan():
 
         addresses=((address & mask[0]) | mask[1] for mask in self.masks)
         result=reduce(lambda x, y: x << 1 | y, (calc(a) for a in addresses), 0)
+        print(result)
         return ".".join(["%s" % x for x in self.toarray(result ^ address)])
     
 
 def main():
     key = b"boojahyoo3vaeToong0Eijee7Ahz3yee"
     crypto_pan = CryptoPan(key)
-    anonymized_ip = crypto_pan.anonymize("192.0.2.1")
+    anonymized_ip = crypto_pan.anonymize("123.123.123.123")
     print(anonymized_ip)
     
     # a resposta deve ser "206.2.124.120" conforme o teste da biblioteca original
