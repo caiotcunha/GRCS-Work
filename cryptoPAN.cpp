@@ -59,7 +59,7 @@ CryptoPan::CryptoPan(const std::string& key) {
 
 }
 
-std::array<uint8_t, 4> CryptoPan::toArray(uint32_t n) {
+array<uint8_t, 4> CryptoPan::toArray(uint32_t n) {
     std::array<uint8_t, 4> result;
 
     for (int i = 3; i >= 0; --i) {
@@ -70,14 +70,12 @@ std::array<uint8_t, 4> CryptoPan::toArray(uint32_t n) {
 }
 
 uint8_t CryptoPan::calc(uint32_t a) {
-        std::array<uint8_t, 4> a_array = toArray(a);
-        
-        cout << endl;
-        std::vector<uint8_t> inp(a_array.begin(), a_array.end());
+        array<uint8_t, 4> a_array = toArray(a);
+        vector<uint8_t> inp(a_array.begin(), a_array.end());
 
         inp.insert(inp.end(), pad.begin() + 4, pad.end());
 
-        std::vector<uint8_t> aes_output(CryptoPP::AES::BLOCKSIZE);
+        vector<uint8_t> aes_output(CryptoPP::AES::BLOCKSIZE);
         aes.ProcessData(aes_output.data(), inp.data(), inp.size());
 
         uint8_t out = aes_output[0];
@@ -87,11 +85,6 @@ uint8_t CryptoPan::calc(uint32_t a) {
 
 
 std::string CryptoPan::anonymize(const string& key, const string& ip) {
-    uint32_t a = 123456;  
-
-    uint8_t neww = calc(a);
-    cout << neww << endl;
-
     vector<uint8_t> address;
     stringstream ss(ip);
     string segment;
@@ -106,7 +99,7 @@ std::string CryptoPan::anonymize(const string& key, const string& ip) {
 
     uint32_t newAddress = toInt({address[0], address[1], address[2], address[3]});
     
-    std::vector<uint32_t> maskedAddresses;
+   vector<uint32_t> maskedAddresses;
         for (const auto& mask : masks) {
             uint32_t masked = (newAddress & mask.first) | mask.second;
             maskedAddresses.push_back(masked);
@@ -120,10 +113,10 @@ std::string CryptoPan::anonymize(const string& key, const string& ip) {
     result = result ^ newAddress;
 
     
-    std::array<uint8_t, 4> finalArray = toArray(result);
+    array<uint8_t, 4> finalArray = toArray(result);
 
 
-    std::stringstream ipStream;
+    stringstream ipStream;
     for (size_t i = 0; i < finalArray.size(); ++i) {
         if (i > 0) ipStream << ".";  
         ipStream << static_cast<int>(finalArray[i]);
