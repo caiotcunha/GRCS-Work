@@ -14,7 +14,7 @@ int main() {
     std::string key = "boojahyoo3vaeToong0Eijee7Ahz3yee";
 
     CryptoPan *cp = new CryptoPan(key);
-    cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","123.123.123.123") << endl;
+    cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.1") << endl;
 
     delete cp;
 
