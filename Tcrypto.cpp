@@ -73,16 +73,14 @@ std::string TCrypto::anonymize(const std::string& ip) {
 
     uint32_t ipAddress = toInt({address[0], address[1], address[2], address[3]});
 
-    // Extrair prefixo com base em k bits
     uint32_t prefixMask = (0xFFFFFFFF << (32 - k)) & 0xFFFFFFFF;
     uint32_t prefix = ipAddress & prefixMask;
 
-    // Verificar se o prefixo já foi processado
+   
     if (prefixMap.find(prefix) != prefixMap.end()) {
         return prefixMap[prefix];
     }
 
-    // Calcular novo valor para o prefixo
     uint32_t newAddress = ipAddress;
     vector<uint32_t> addresses;
 
