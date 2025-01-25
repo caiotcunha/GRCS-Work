@@ -5,7 +5,8 @@
 #include <cryptopp/hex.h>
 
 
-#include "cryptoPAN.h"
+//#include "cryptoPAN.h"
+#include "Tcrypto.h"
 
 int main() {
     using namespace CryptoPP;
@@ -13,10 +14,13 @@ int main() {
     std::cout << "main started" << std::endl;
     std::string key = "boojahyoo3vaeToong0Eijee7Ahz3yee";
 
-    CryptoPan *cp = new CryptoPan(key);
-    cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.1") << endl;
+    //CryptoPan *cp = new CryptoPan(key);
+    //cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.1") << endl;
+    //cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.2") << endl;
+    //delete cp;
 
-    delete cp;
-
+    TCrypto *tcp = new TCrypto(key,16);
+    cout << tcp->anonymize("192.0.2.1") << endl;
+    cout << tcp->anonymize("192.1.24.25") << endl;
     return 0;
 }
