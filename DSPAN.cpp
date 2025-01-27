@@ -6,19 +6,19 @@
 using namespace std;
 using namespace CryptoPP;
 
-TCryptoError::TCryptoError(const std::string& msg) : message(msg) {}
+DSPANError::DSPANError(const std::string& msg) : message(msg) {}
 
-const char* TCryptoError::what() const noexcept {
+const char* DSPANError::what() const noexcept {
     return message.c_str();
 }
 
-uint32_t TCrypto::toInt(const std::array<uint8_t, 4>& arr) {
+uint32_t DSPAN::toInt(const std::array<uint8_t, 4>& arr) {
     return (arr[0] << 24) | (arr[1] << 16) | (arr[2] << 8) | arr[3];
 }
 
-TCrypto::TCrypto(const std::string& key, uint8_t kBits) : k(kBits) {
+DSPAN::DSPAN(const std::string& key, uint8_t kBits) : k(kBits) {
     if (key.size() != 32) {
-        throw TCryptoError("Key must be a 32 byte long string");
+        throw DSPANError("Key must be a 32 byte long string");
     }
 
     CryptoPP::SecByteBlock aesKey(reinterpret_cast<const uint8_t*>(key.data()), 16);
@@ -38,14 +38,14 @@ TCrypto::TCrypto(const std::string& key, uint8_t kBits) : k(kBits) {
     }
 }
 
-std::array<uint8_t, 4> TCrypto::toArray(uint32_t n) {
+std::array<uint8_t, 4> DSPAN::toArray(uint32_t n) {
     return {static_cast<uint8_t>((n >> 24) & 0xFF),
             static_cast<uint8_t>((n >> 16) & 0xFF),
             static_cast<uint8_t>((n >> 8) & 0xFF),
             static_cast<uint8_t>(n & 0xFF)};
 }
 
-uint8_t TCrypto::calc(uint32_t a) {
+uint8_t DSPAN::calc(uint32_t a) {
     std::array<uint8_t, 4> a_array = toArray(a);
 
     vector<uint8_t> inp(a_array.begin(), a_array.end());
@@ -58,7 +58,7 @@ uint8_t TCrypto::calc(uint32_t a) {
     return (out >> 7) & 0x01;
 }
 
-std::string TCrypto::prefix(uint32_t ipAddress){
+std::string DSPAN::prefix(uint32_t ipAddress){
     uint32_t newAddress = ipAddress;
     vector<uint32_t> addresses;
 
@@ -84,7 +84,7 @@ std::string TCrypto::prefix(uint32_t ipAddress){
     return ipStream.str();
 }
 
-std::string TCrypto::anonymize(const std::string& ip) {
+std::string DSPAN::anonymize(const std::string& ip) {
     vector<uint8_t> address;
     stringstream ss(ip);
     string segment;
@@ -94,7 +94,7 @@ std::string TCrypto::anonymize(const std::string& ip) {
     }
 
     if (address.size() != 4) {
-        throw TCryptoError("Invalid IPv4 Address");
+        throw DSPANError("Invalid IPv4 Address");
     }
 
     uint32_t ipAddress = toInt({address[0], address[1], address[2], address[3]});
@@ -116,6 +116,6 @@ std::string TCrypto::anonymize(const std::string& ip) {
         string anom = this->prefix(new_ip);
         prefixMap[i] = anom;
     }
-    
+
     return anonymizedIp;
 }

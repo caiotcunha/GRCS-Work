@@ -17,10 +17,10 @@
 using namespace std;
 using namespace CryptoPP;
 
-class TCrypto {
+class DSPAN{
 public:
     // Construtor atualizado para aceitar k (quantidade de bits do prefixo)
-    TCrypto(const std::string& key, uint8_t kBits);
+    DSPAN(const std::string& key, uint8_t kBits);
 
     // Funções auxiliares e atributos do algoritmo
     std::array<uint8_t, 4> toArray(uint32_t n);
@@ -47,12 +47,12 @@ private:
 };
 
 // Classe de erro para tratar exceções específicas
-class TCryptoError : public std::exception {
+class DSPANError : public std::exception {
 private:
     std::string message;
 
 public:
-    explicit TCryptoError(const std::string& msg);
+    explicit DSPANError(const std::string& msg);
 
     const char* what() const noexcept override;
 };

@@ -20,7 +20,7 @@ int main() {
     //cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.2") << endl;
     //delete cp;
 
-    TCrypto *tcp = new TCrypto(key,1);
+    DSPAN *tcp = new DSPAN(key,21);
     cout << tcp->anonymize("192.0.2.1") << endl;
     cout << tcp->anonymize("192.0.2.25") << endl;
     return 0;
