@@ -106,7 +106,7 @@ std::string DSPAN::anonymize(const std::string& ip) {
     if (prefixMap.find(prefix) != prefixMap.end()) {
         return prefixMap[prefix];
     }
-
+    prefixMap.clear();
     // Armazenar no mapa de prefixos
     string anonymizedIp = this->prefix(ipAddress);
     prefixMap[ipAddress] = anonymizedIp;
