@@ -6,7 +6,8 @@
 
 
 //#include "cryptoPAN.h"
-#include "Tcrypto.h"
+//#include "Tcrypto.h"
+#include "DSPAN.h"
 
 int main() {
     using namespace CryptoPP;
@@ -19,8 +20,8 @@ int main() {
     //cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee","192.0.2.2") << endl;
     //delete cp;
 
-    TCrypto *tcp = new TCrypto(key,16);
+    TCrypto *tcp = new TCrypto(key,1);
     cout << tcp->anonymize("192.0.2.1") << endl;
-    cout << tcp->anonymize("192.1.24.25") << endl;
+    cout << tcp->anonymize("192.0.2.25") << endl;
     return 0;
 }
