@@ -8,7 +8,7 @@
 
 //#include "cryptoPAN.h"
 #include "Tcrypto.h"
-#include "DSPAN.h"
+//#include "DSPAN.h"
 
 double time1, timedif;
 
@@ -25,24 +25,22 @@ int main() {
     ifstream file("./database/ipv4.txt");
 
     //CryptoPan *cp = new CryptoPan(key);
-    //TCrypto *tcp = new TCrypto(key,1);
-    TCrypto *dscp = new TCrypto(key,21);
+    TCrypto *tcp = new TCrypto(key,24);
+    //DSPAN *dscp = new DSPAN(key,24);
 
     if (file.is_open()){
         while (getline(file,line)){
-            //cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee",line);
-            //tcp->anonymize(line);
-            dscp->anonymize(line);
+            //cout << cp->anonymize("boojahyoo3vaeToong0Eijee7Ahz3yee",line) << endl;
+            tcp->anonymize(line);
+            //dscp->anonymize(line);
         }
         file.close();
     }
 
     //delete cp;
-    //delete tcp;
+    delete tcp;
 
     timedif = ( ((double) clock()) / CLOCKS_PER_SEC) - time1;
-
-    cout << timedif << endl;
 
     return 0;
 }
